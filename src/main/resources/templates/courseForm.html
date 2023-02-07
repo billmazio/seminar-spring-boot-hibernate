@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <link th:href="@{/css/webform.css}" href="/css/webform.css" rel="stylesheet" type="text/css"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Patient Form</title>
+</head>
+
+<script type="text/javascript" src="/js/webform.js"></script>
+
+<form th:action="@{/course/save}" method="post" th:object="${course}">
+  <div class="container course-form">
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <form>
+          <h1>Course Form</h1>
+          <div class="row">
+            <div class="col-lg-6 col-12">
+              <label>
+                <span>Course Name</span><input type="text" th:field="*{name}" name="name"/>
+              </label>
+            </div>
+
+
+            <div class="col-lg-6 col-12">
+              <label>
+                <span>Course Description</span><input id="description" type="text" th:field="*{description}"
+                                                 name="description"/>
+              </label>
+            </div>
+
+            <div class="col-lg-6 col-12">
+              <label>
+                <span>Student Name</span><input id="studentName" type="text" th:field="*{studentName}"
+                                                 name="studentName"/>
+              </label>
+            </div>
+
+
+          <div class="col-lg-6 col-12">
+            <label>
+              <span>Teacher Name</span><input id="teacherName" type="text" th:field="*{teacherName}"
+                                               name="teacherName"/>
+            </label>
+          </div>
+
+          <div class="message">
+            <div class="col-lg-12 col-12">
+              <label class="message_btn_wrapper">
+                <input type="submit" value="Submit Form"/>
+
+              </label>
+  </div>
+  </div>
+        </form>
+
+    </div>
+  </div>
+</form>
+
