@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link th:href="@{/css/webform.css}" href="/css/webform.css" rel="stylesheet" type="text/css"/>
+    <link th:href="@{css/styleCourse.css}" href="/css/styleCourse.css" rel="stylesheet"  type="text/css"/>
+
+    <title>Update Course</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<form th:action="@{/edit}" method="post" th:object="${course}">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12 text-center mt-5 mb-5">
+                <h1 class="display-4">Course Form</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="card border-0">
+                    <div class="card-header">Course Identification</div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <label>
+                                Name: <span th:text="${course.name}">[ Name]</span>
+
+                            </label>
+                            <label>
+                               Course ID: <span th:text="${course.id}">[Course ID]</span>
+                                Description:<span th:text="${course.description}"></span>
+                            </label>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="card border-0">
+                    <div class="card-header">Student Information</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="studentNameLabel">Name:</label>
+                            <input type="studentName" class="form-control" th:value="${course.studentName}"
+                                   th:name="email" autofocus id="studentNameLabel" placeholder="Enter student name">
+                        </div>
+
+
+                        <label class="mb-2" for="dropDownList">
+                            <select th:field="*{students}" class="form-control" id="dropDownList">
+                                <option value="0">Choose a Student</option>
+                                <option th:each="student: ${allStudents}" th:value="${student.id}" th:text="${student.email}">[Student
+                                    email]
+                                </option>
+                            </select>
+                        </label>
+
+                        <p th:if="${!#strings.isEmpty(errorMessage)}"
+                           class="alert alert-danger" role="alert">
+                            <span th:text="${errorMessage}">* This field is required</span>
+                        </p>
+                        <p>Currently Edited:
+                            <th:block th:each="edit : ${course.students}"
+                                      th:text="${edit.email}">[currently edited]
+                            </th:block>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        <div class="col-lg-6 col-12">
+            <div class="card border-0">
+                <div class="card-header">Teacher Information</div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="teacherNameLabel">Name:</label>
+                        <input type="teacherName" class="form-control" th:value="${course.teacherName}"
+                               th:name="teacherName" autofocus id="teacherNameLabel" >
+                    </div>
+                    <label class="mb-2" for="dropDownList1">
+                        <select th:field="*{teachers}" class="form-control" id="dropDownList1">
+                            <option value="0">Choose a Teacher</option>
+                            <option th:each="teacher: ${allTeachers}" th:value="${teacher.id}" th:text="${teacher.specialty}">[Teacher
+                                specialty]
+                            </option>
+
+                        </select>
+                    </label>
+
+                    <p th:if="${!#strings.isEmpty(errorMessage)}"
+                       class="alert alert-danger" role="alert">
+                        <span th:text="${errorMessage}">* This field is required</span>
+                    </p>
+                    <p>Currently Edited:
+                        <th:block th:each="edit : ${course.teachers}"
+                                  th:text="${edit.specialty}">[currently edited]
+
+                        </th:block>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-8 mt-2">
+                <input type="hidden" th:field="*{id}"/> <!--Need to make sure the patient is updated -->
+                <input class="btn btn-primary btn-block" type="submit" value="Update Course"/>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
