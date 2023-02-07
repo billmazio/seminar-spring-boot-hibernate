@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title th:text="'Courses Found: '+ ${#lists.size(courseList)}">[0]Courses Found</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"/>
+  <link th:href="@{/css/coursestable.css}" href="/css/coursestable.css" rel="stylesheet" type="text/css" />
+  <link th:href="@{/css/webform.css}" href="/css/webform.css" rel="stylesheet" type="text/css"/>
+  <link th:href="@{css/styleCourse.css}" href="/css/styleCourse.css" rel="stylesheet"  type="text/css"/>
+  <title>Update Course</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <a class="navbar-brand" href="/">Home</a>
+  <div class="row">
+    <div class="col-lg-12 col-12 text-center mt-5 mb-5">
+      <h1 class="display-4">Course List</h1>
+      <h5 class="font-weight-light" th:text="'Courses Found: '+${#lists.size(courseList)}">[0] Courses
+        Found</h5>
+    </div>
+  </div>
+  <div class="newCourse" style="padding:20px;"><a class="h2" href= "/add/course">Add A New Course +</a></div>
+
+  <form th:action="@{/courses}" method="get">
+
+    <input type="text" name="name" th:value="${name}"  placeholder="Find by Name" size="40" >
+    <button type="submit" class="btn btn-primary ">Search</button>
+
+  <!-- <button type="btnClear" class="btn btn-primary ">Clear</button>
+-->
+
+    <div th:if="${courses.size() > 0}"></div>
+
+  </form>
+
+  <div class="row">
+    <div class="col-xl-3" th:each="course : ${courses}">
+      <div class="card mr-2 mt-2 ml-2 mb-2"
+           style="width: 15rem; display: inline-block">
+        <div class="card-body">
+        <h5 class="card-title course-name"><span th:text="${course.name}">[ Name]</span>
+          <span th:text="${course.description}">[Description]
+
+
+          </span></h5>
+          <h6 class="course-id">
+           Course ID: <span th:text="${course.id}" th:remove="tag">[Course ID]</span>
+          </h6>
+          <div class="card-text course-details">
+          </div>
+
+            <address>
+
+
+              Edited Students:
+              Name: <span th:text="${course.studentName}" th:remove="tag">[name]</span><br>
+              <ul>
+
+                <th:block th:each="student: ${course.students}">
+                  <li th:text="${student.email}">student[email]</li>
+                </th:block>
+              </ul>
+            </address>
+          <address>
+          Edited Teachers:
+            Name: <span th:text="${course.teacherName}" th:remove="tag">[name]</span><br>
+          <ul>
+
+          <th:block th:each="teacher : ${course.teachers}">
+            <li th:text="${teacher.specialty}">teacher[specialty]</li>
+          </th:block>
+          </ul>
+          </address>
+          </div>
+          <div class="card-footer">
+          <a class="btn btn-primary"
+             th:href="@{/updateCourse/{id}(id = ${course.id})}">Add Registration</a>
+        </div>
+        <div class="card-footer">
+          <a class="btn btn-primary" th:href="@{/course/delete/{id}(id = ${course.id})}">Delete</a>
+        </div>
+        </h5>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</body>
+</html>
